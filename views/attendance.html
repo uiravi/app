@@ -1,0 +1,195 @@
+<ol class="breadcrumb">
+  <li><a href="#/">{{staticData.header.home}}</a></li>
+  <li><a href="#Attendance">{{staticData.header.attendance}}</a></li>
+</ol>
+
+<h3>Employee Attendance Record</h3>
+<div id="showData"></div>
+<div class="tab-main-container">
+	<ul class="tabs clearfix">
+		<li rel="1">{{months.Jan.name}}</li>
+		<li rel="2">{{months.Feb.name}}</li>
+		<li rel="3">{{months.Mar.name}}</li>
+		<li rel="4">{{months.Apr.name}}</li>
+		<li rel="5">{{months.May.name}}</li>
+		<li rel="6">{{months.Jun.name}}</li>
+		<li rel="7">{{months.Jul.name}}</li>
+		<li rel="8">{{months.Aug.name}}</li>
+		<li rel="9">{{months.Sep.name}}</li>
+		<li rel="10">{{months.Oct.name}}</li>
+		<li rel="11">{{months.Nov.name}}</li>
+		<li rel="12">{{months.Dec.name}}</li>
+	</ul>
+	<ul class="tab-container">
+		<li>
+			<h3 class="months-heading">{{months.Jan.name}} - 2017</h3>
+			<ul class="calenders clearfix" id="january">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li ng-repeat="i in getMonths(months.Jan.days) track by $index" id="jan{{$index+1}}" data-today="{{months.Jan.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Feb.name}} - 2017</h3>
+			<ul class="calenders clearfix"  id="february">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Feb.days) track by $index" id="fab{{$index+1}}" data-today="{{months.Feb.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Mar.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Mar.days) track by $index" id="mar{{$index+1}}" data-today="{{months.Mar.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Apr.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Apr.days) track by $index" id="apr{{$index+1}}" data-today="{{months.Apr.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.May.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.May.days) track by $index" id="may{{$index+1}}" data-today="{{months.May.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Jun.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Jun.days) track by $index" id="jun{{$index+1}}" data-today="{{months.Jun.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Jul.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Jul.days) track by $index" id="jul{{$index+1}}" data-today="{{months.Jul.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Aug.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Aug.days) track by $index" id="aug{{$index+1}}" data-today="{{months.Aug.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Sep.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Sep.days) track by $index" id="sep{{$index+1}}" data-today="{{months.Sep.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Oct.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li ng-repeat="i in getMonths(months.Oct.days) track by $index" id="oct{{$index+1}}" data-today="{{months.Oct.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Nov.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Nov.days) track by $index" id="nov{{$index+1}}" data-today="{{months.Nov.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+		<li>
+			<h3 class="months-heading">{{months.Dec.name}} - 2017</h3>
+			<ul class="calenders clearfix">
+				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li ng-repeat="i in getMonths(months.Dec.days) track by $index" id="dec{{$index+1}}" data-today="{{months.Dec.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+<div class="overlay hide"></div>
+<div class="addAttendance hide">
+	<span class="disp-today"></span>
+	
+	<label for="">Working Hours:</label>
+	<input type="number" id="working-hours"  />
+
+	<input type="submit" value="Submit" id="submitAttendance" ng-click="markAttendance($event)" />
+</div>
+<script src="js/plugins/tab.js"></script>

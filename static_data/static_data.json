@@ -1,0 +1,23 @@
+{
+	"header":{
+		"logo": "Brand",
+		"login": "Login",
+		"myAccount": "My Account",
+		"dashboard": "Dashboard",
+		"attendance": "Attendance",
+		"logout": "Logout",
+		"home": "Home",
+		"profile": "My Profile",
+		"leave": "Leave",
+		"leaveRequest": "Leave Request",
+		"leaveBalances": "Leave Balances",
+		"workExperience" : "Work Experience"
+	},
+	"login":{
+		"login": "Login",
+		"user": "User",
+		"password": "Password",
+		"ramemberMe": "Remember me",
+		"signIn": "Sign in"
+	}
+}
