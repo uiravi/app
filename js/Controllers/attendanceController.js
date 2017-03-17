@@ -1,5 +1,33 @@
 'use strict';
-app.controller("attendanceController", function($scope, $http){
+app.controller("attendanceController", function($scope, $http, $route){
+
+	//Code for opening indexedDB database
+	var db;
+
+	//Open Database
+	var request = indexedDB.open('AttendanceManager', 1);
+
+
+	//Upgrade needed
+	request.onupgradeneeded = function(e){
+		var db = e.target.result;
+		var objectStore = db.createObjectStore('Attendance', {keyPath: 'id', autoIncrement:true})
+			.createIndex('selectedDateID', 'selectedDateID', {unique:true});
+	};
+
+	//Success
+	request.onsuccess = function(e){
+		console.log("Success: Opened Database...");
+		db = e.target.result;
+
+		//Showing Attendance
+		$scope.showAttendance();
+	};
+
+	//Error
+	request.onerror = function(e){
+		console.log("Error: Could Not Open Database...");
+	};
 
 	//Getting Current Month
 	$scope.getCurrentMonth = function(){
@@ -33,12 +61,16 @@ app.controller("attendanceController", function($scope, $http){
 		return new Array(num);
 	};
 
+
 	//Showing Pop Up for Mark Attendance
 	$scope.showMarkAttendancePopup = function($event){
 		var $attendancePopUp = $(".addAttendance"),
 			$dispCurrentSelection = $attendancePopUp.find(".disp-today"),
 			$overlay = $(".overlay"),
-			$getCurrentSelection = $($event.currentTarget).data("today");
+			$getCurrentSelection = $($event.currentTarget).data("today"),
+			$submitAttendanceBtn = $attendancePopUp.find("#submitAttendance"),
+			$workingHours = $attendancePopUp.find("#working-hours"),
+			isAttendanceMarked = $($event.currentTarget).find(".attendance-record").length == 1;
 
 		//Showing currnt date in popup
 		$dispCurrentSelection.html($getCurrentSelection);
@@ -47,35 +79,25 @@ app.controller("attendanceController", function($scope, $http){
 		$attendancePopUp.add($overlay).removeClass("hide");
 
 		//Adding Current Selection ID in Pop up with data-id
-		$attendancePopUp.attr("data-id", $event.currentTarget.id);
+		$attendancePopUp.attr({
+			"data-id": $event.currentTarget.id,
+			"data-keyPathId": $($event.currentTarget).find(".attendance-record").data("id"),
+			"isAttendanceMarked": isAttendanceMarked
+		});
+
+		if(isAttendanceMarked){
+			$workingHours.val($($event.currentTarget).find(".attendance-record i").text());
+		}else{
+			$workingHours.val("");
+		}
 	};
 
-	//Code for opening indexedDB database
-	var db;
 
-	//Open Database
-	var request = indexedDB.open('AttendanceManager', 1);
-
-	//Upgrade needed
-	request.onupgradeneeded = function(e){
-		var db = e.target.result;
-		var objectStore = db.createObjectStore('Attendance', {keyPath: 'id', autoIncrement:true})
-			.createIndex('selectedDateID', 'selectedDateID', {unique:true});
+	//Close Attendance Popup
+	$scope.closeAttendancePopup = function($event){
+		$($event.target.offsetParent).add(".overlay").addClass("hide");
 	};
 
-	//Success
-	request.onsuccess = function(e){
-		console.log("Success: Opened Database...");
-		db = e.target.result;
-
-		//Showing Attendance
-		$scope.showAttendance();
-	};
-
-	//Error
-	request.onerror = function(e){
-		console.log("Error: Could Not Open Database...");
-	};
 
 	//Marking Attendance
 	$scope.markAttendance = function($event){
@@ -105,7 +127,7 @@ app.controller("attendanceController", function($scope, $http){
 		//Success
 		request.onsuccess = function(e){
 			console.log("You Have Successfully Marked Attendance for : " + selectedDate.text());
-			//window.location.href="#/";
+			$route.reload();
 		};
 
 		//Error
@@ -115,8 +137,11 @@ app.controller("attendanceController", function($scope, $http){
 		}
 
 		console.log(selectedDateID);
+
 	};
 
+
+	//Getting attendance from database
 	$scope.showAttendance = function(){
 		var transaction = db.transaction(['Attendance'], 'readonly');
 
@@ -128,15 +153,58 @@ app.controller("attendanceController", function($scope, $http){
 
 		index.openCursor().onsuccess = function(e){
 			var cursor = e.target.result;
-			//console.log(cursor)
 
 			if(cursor){
-				output = "<span class='attendance-record'>"+cursor.value.workingHours+"</span>";
+				output = "<span class='attendance-record' data-id='"+cursor.value.id+"'>Working Hours: <i>"+cursor.value.workingHours+"</i></span>";
 				cursor.continue();
 				$("#" + cursor.value.selectedDateID).append(output);
 			}
 		}
 		
+	};
+
+
+	//Update Attendance
+	$scope.updateAttendance = function(){
+		var $attendancePopUp = $(".addAttendance"),
+			$overlay = $(".overlay"),
+			$updatedWorkingHours = $attendancePopUp.find("#working-hours").val(),
+			keyPathID = $attendancePopUp.data("keypathid");
+
+		//Get Transaction
+		var transaction = db.transaction(['Attendance'], 'readwrite');
+
+		//Ask for ObjectStore
+		var store = transaction.objectStore('Attendance');
+
+		var request = store.get(keyPathID);
+
+		request.onsuccess = function(){
+			var data = request.result;
+
+			data.workingHours = $updatedWorkingHours;
+
+			//Store Updated working hours
+			var requestUpdate = store.put(data);
+
+			requestUpdate.onsuccess = function(){
+				console.log("Success: Working hours updated...");
+				$route.reload();
+			};
+
+			requestUpdate.onerror = function(){
+				console.log("Error: Working hours not updated...");
+			};
+
+			$attendancePopUp.add($overlay).addClass("hide");;
+		};
+	};
+
+
+	//Chanhe marked and update attendance function
+	$scope.changeMarkAndUpdateAttendance = function($event){
+		var isAttendanceMarked = $(".addAttendance").attr("isattendancemarked");
+		isAttendanceMarked == "true" ? $scope.updateAttendance() : $scope.markAttendance();
 	};
 
 });

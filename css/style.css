@@ -282,6 +282,7 @@
 	float: left;
 	list-style:none;
 	padding:10px 0;
+	position: relative;
 	text-align: center;
 	width: 14.28%;
 	}
@@ -332,6 +333,15 @@
 	z-index:99;
 	}
 
+.addAttendance .close-attendance-popup{
+	color: #fff;
+	cursor: pointer;
+    font-size: 18px;
+	position: absolute;
+    right: -18px;
+    top: -18px;
+	}
+
 .addAttendance label{
 	color: #666;
 	font-weight: normal;
@@ -358,9 +368,19 @@
 .attendance-record{
 	background: #006900;
     color: #fff;
-    font: 10px arial;
-    padding: 5px 10px;
+    font: 12px arial;
+    padding: 10px 10px;
     text-align: left;
     display: inline-block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
     width: 100%;
+	}
+
+.attendance-record i{
+	background: #013e01;
+    border-radius: 3px;
+    font-weight: bold;
+    padding: 2px 5px 2px 4px;
 	}

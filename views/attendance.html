@@ -185,11 +185,10 @@
 </div>
 <div class="overlay hide"></div>
 <div class="addAttendance hide">
+	<span class="glyphicon glyphicon-remove close-attendance-popup" ng-click="closeAttendancePopup($event)"></span>
 	<span class="disp-today"></span>
-	
 	<label for="">Working Hours:</label>
 	<input type="number" id="working-hours"  />
-
-	<input type="submit" value="Submit" id="submitAttendance" ng-click="markAttendance($event)" />
+	<input type="submit" value="Submit" id="submitAttendance" ng-click="changeMarkAndUpdateAttendance($event)" />
 </div>
 <script src="js/plugins/tab.js"></script>
