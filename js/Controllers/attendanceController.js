@@ -1,6 +1,8 @@
 'use strict';
 app.controller("attendanceController", function($scope, $http, $route){
 
+	$scope.attendanceMsg = false;
+
 	//Code for opening indexedDB database
 	var db;
 
@@ -107,6 +109,14 @@ app.controller("attendanceController", function($scope, $http, $route){
 			selectedDate = $attendancePopUp.find(".disp-today"),
 			selectedDateID = $attendancePopUp.attr("data-id");
 
+		if($workingHours == ""){
+			alert("Please enter working hours");
+			return false;
+		}else if(Number($workingHours) > 24){
+			alert("Please enter less than and equal to 24 hours");
+			return false;
+		}
+
 		//Hiding Mark Attendance Pop Up
 		$attendancePopUp.add($overlay).addClass("hide");
 
@@ -170,6 +180,14 @@ app.controller("attendanceController", function($scope, $http, $route){
 			$overlay = $(".overlay"),
 			$updatedWorkingHours = $attendancePopUp.find("#working-hours").val(),
 			keyPathID = $attendancePopUp.data("keypathid");
+
+		if($updatedWorkingHours == ""){
+			alert("Please enter working hours");
+			return false;
+		}else if(Number($updatedWorkingHours) > 24){
+			alert("Please enter less than and equal to 24 hours");
+			return false;
+		}
 
 		//Get Transaction
 		var transaction = db.transaction(['Attendance'], 'readwrite');

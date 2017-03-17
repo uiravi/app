@@ -29,7 +29,7 @@
 	background: rgba(0, 0, 0, .5);
 	height:100%;
 	width: 100%;
-	position:fixed;
+	position:absolute;
 	left:0;
 	top: 0;
 	z-index: 9;
@@ -42,6 +42,7 @@
 .tab-main-container{
 	margin: 20px auto;
 	width: 100%;
+	position: relative;
 	}
 
 .tabs, .tab-container{
@@ -324,9 +325,9 @@
 	-moz-box-shadow:0 0 8px 4px rgba(17,17,17,.1);
 	box-shadow:0 0 8px 4px rgba(17,17,17,.1);
 	background:#fff;
-	margin: -98px 0 0 -90px;
+	margin: -70px 0 0 -150px;
 	padding: 15px;
-	width:200px;
+	width:300px;
 	position:fixed;
 	left: 50%;
 	top: 50%;
@@ -345,14 +346,13 @@
 .addAttendance label{
 	color: #666;
 	font-weight: normal;
-	display:block;
 	}
 
 .addAttendance input{
 	color: #666;
 	margin-bottom: 20px;
 	padding:2px;
-	width: 100%;
+	width: 30%;
 	}
 
 .addAttendance .disp-today{
@@ -369,7 +369,7 @@
 	background: #006900;
     color: #fff;
     font: 12px arial;
-    padding: 10px 10px;
+    padding: 10px 4px;
     text-align: left;
     display: inline-block;
     position: absolute;
