@@ -94,14 +94,6 @@ app.controller("attendanceController", function($scope, $http, $route){
 	//Marking Attendance
 	$scope.markAttendance = function($event){
 
-		if($scope.workingHours == ""){
-			alert("Please enter working hours");
-			return false;
-		}else if(Number($scope.workingHours) > 24){
-			alert("Please enter less than and equal to 24 hours");
-			return false;
-		}
-
 		//Hiding Mark Attendance Pop Up
 		$scope.showAttendancePopup = false;
 
@@ -158,14 +150,6 @@ app.controller("attendanceController", function($scope, $http, $route){
 
 	//Update Attendance
 	$scope.updateAttendance = function(){
-
-		if($scope.workingHours == ""){
-			alert("Please enter working hours");
-			return false;
-		}else if(Number($scope.workingHours) > 24){
-			alert("Please enter less than and equal to 24 hours");
-			return false;
-		}
 
 		//Get Transaction
 		var transaction = db.transaction(['Attendance'], 'readwrite');
