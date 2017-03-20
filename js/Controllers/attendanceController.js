@@ -1,14 +1,11 @@
 'use strict';
 app.controller("attendanceController", function($scope, $http, $route){
 
-	$scope.attendanceMsg = false;
-
 	//Code for opening indexedDB database
 	var db;
 
 	//Open Database
 	var request = indexedDB.open('AttendanceManager', 1);
-
 
 	//Upgrade needed
 	request.onupgradeneeded = function(e){
@@ -66,59 +63,44 @@ app.controller("attendanceController", function($scope, $http, $route){
 
 	//Showing Pop Up for Mark Attendance
 	$scope.showMarkAttendancePopup = function($event){
-		var $attendancePopUp = $(".addAttendance"),
-			$dispCurrentSelection = $attendancePopUp.find(".disp-today"),
-			$overlay = $(".overlay"),
-			$getCurrentSelection = $($event.currentTarget).data("today"),
-			$submitAttendanceBtn = $attendancePopUp.find("#submitAttendance"),
-			$workingHours = $attendancePopUp.find("#working-hours"),
-			isAttendanceMarked = $($event.currentTarget).find(".attendance-record").length == 1;
 
-		//Showing currnt date in popup
-		$dispCurrentSelection.html($getCurrentSelection);
+		$scope.showAttendancePopup = true;
 
-		//Showing attendence popup
-		$attendancePopUp.add($overlay).removeClass("hide");
+		$scope.isAttendanceMarked = $event.currentTarget.children.length == 1;
 
-		//Adding Current Selection ID in Pop up with data-id
-		$attendancePopUp.attr({
-			"data-id": $event.currentTarget.id,
-			"data-keyPathId": $($event.currentTarget).find(".attendance-record").data("id"),
-			"isAttendanceMarked": isAttendanceMarked
-		});
+		//Showing current date in popup
+		$scope.dispToday = $event.currentTarget.attributes.dataToday.value;
 
-		if(isAttendanceMarked){
-			$workingHours.val($($event.currentTarget).find(".attendance-record i").text());
+		$scope.dataID = $event.currentTarget.id;
+
+		if($scope.isAttendanceMarked){
+			$scope.keypathid = $event.currentTarget.children["0"].attributes[1].value;
+			$scope.workingHours = Number($event.currentTarget.children["0"].children["0"].innerHTML);
 		}else{
-			$workingHours.val("");
+			$scope.workingHours="";
 		}
 	};
 
 
 	//Close Attendance Popup
 	$scope.closeAttendancePopup = function($event){
-		$($event.target.offsetParent).add(".overlay").addClass("hide");
+		$scope.showAttendancePopup = false;
 	};
 
 
 	//Marking Attendance
 	$scope.markAttendance = function($event){
-		var $attendancePopUp = $(".addAttendance"),
-			$overlay = $(".overlay"),
-			$workingHours = $attendancePopUp.find("#working-hours").val(),
-			selectedDate = $attendancePopUp.find(".disp-today"),
-			selectedDateID = $attendancePopUp.attr("data-id");
 
-		if($workingHours == ""){
+		if($scope.workingHours == ""){
 			alert("Please enter working hours");
 			return false;
-		}else if(Number($workingHours) > 24){
+		}else if(Number($scope.workingHours) > 24){
 			alert("Please enter less than and equal to 24 hours");
 			return false;
 		}
 
 		//Hiding Mark Attendance Pop Up
-		$attendancePopUp.add($overlay).addClass("hide");
+		$scope.showAttendancePopup = false;
 
 		var transaction = db.transaction(['Attendance'], 'readwrite');
 
@@ -127,8 +109,8 @@ app.controller("attendanceController", function($scope, $http, $route){
 
 		//Define Attendance
 		var attendance = {
-			workingHours: $workingHours,
-			selectedDateID: selectedDateID
+			workingHours: $scope.workingHours,
+			selectedDateID: $scope.dataID
 		};
 		
 		//perform the Add
@@ -136,7 +118,7 @@ app.controller("attendanceController", function($scope, $http, $route){
 		
 		//Success
 		request.onsuccess = function(e){
-			console.log("You Have Successfully Marked Attendance for : " + selectedDate.text());
+			console.log("You Have Successfully Marked Attendance for : " + $scope.dispToday);
 			$route.reload();
 		};
 
@@ -145,8 +127,6 @@ app.controller("attendanceController", function($scope, $http, $route){
 			alert("Sorry, Attendance was not added");
 			console.log("Error: ", e.target.error.name);
 		}
-
-		console.log(selectedDateID);
 
 	};
 
@@ -165,7 +145,7 @@ app.controller("attendanceController", function($scope, $http, $route){
 			var cursor = e.target.result;
 
 			if(cursor){
-				output = "<span class='attendance-record' data-id='"+cursor.value.id+"'>Working Hours: <i>"+cursor.value.workingHours+"</i></span>";
+				output = "<span class='attendance-record' id='"+cursor.value.id+"'>Working Hours: <i>"+cursor.value.workingHours+"</i></span>";
 				cursor.continue();
 				$("#" + cursor.value.selectedDateID).append(output);
 			}
@@ -176,15 +156,11 @@ app.controller("attendanceController", function($scope, $http, $route){
 
 	//Update Attendance
 	$scope.updateAttendance = function(){
-		var $attendancePopUp = $(".addAttendance"),
-			$overlay = $(".overlay"),
-			$updatedWorkingHours = $attendancePopUp.find("#working-hours").val(),
-			keyPathID = $attendancePopUp.data("keypathid");
 
-		if($updatedWorkingHours == ""){
+		if($scope.workingHours == ""){
 			alert("Please enter working hours");
 			return false;
-		}else if(Number($updatedWorkingHours) > 24){
+		}else if(Number($scope.workingHours) > 24){
 			alert("Please enter less than and equal to 24 hours");
 			return false;
 		}
@@ -195,12 +171,12 @@ app.controller("attendanceController", function($scope, $http, $route){
 		//Ask for ObjectStore
 		var store = transaction.objectStore('Attendance');
 
-		var request = store.get(keyPathID);
+		var request = store.get(Number($scope.keypathid));
 
 		request.onsuccess = function(){
 			var data = request.result;
 
-			data.workingHours = $updatedWorkingHours;
+			data.workingHours = $scope.workingHours;
 
 			//Store Updated working hours
 			var requestUpdate = store.put(data);
@@ -214,15 +190,14 @@ app.controller("attendanceController", function($scope, $http, $route){
 				console.log("Error: Working hours not updated...");
 			};
 
-			$attendancePopUp.add($overlay).addClass("hide");;
+			$scope.showAttendancePopup = true;
 		};
 	};
 
 
 	//Chanhe marked and update attendance function
 	$scope.changeMarkAndUpdateAttendance = function($event){
-		var isAttendanceMarked = $(".addAttendance").attr("isattendancemarked");
-		isAttendanceMarked == "true" ? $scope.updateAttendance() : $scope.markAttendance();
+		$scope.isAttendanceMarked == true ? $scope.updateAttendance($event) : $scope.markAttendance($event);
 	};
 
 });

@@ -25,7 +25,7 @@
 			<h3 class="months-heading">{{months.Jan.name}} - 2017</h3>
 			<ul class="calenders clearfix" id="january">
 				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
-				<li ng-repeat="i in getMonths(months.Jan.days) track by $index" id="jan{{$index+1}}" data-today="{{months.Jan.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Jan.days) track by $index" id="jan{{$index+1}}" dataToday="{{months.Jan.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -39,7 +39,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Feb.days) track by $index" id="fab{{$index+1}}" data-today="{{months.Feb.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Feb.days) track by $index" id="fab{{$index+1}}" dataToday="{{months.Feb.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -53,7 +53,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Mar.days) track by $index" id="mar{{$index+1}}" data-today="{{months.Mar.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Mar.days) track by $index" id="mar{{$index+1}}" dataToday="{{months.Mar.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 			</ul>
 		</li>
@@ -67,7 +67,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Apr.days) track by $index" id="apr{{$index+1}}" data-today="{{months.Apr.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Apr.days) track by $index" id="apr{{$index+1}}" dataToday="{{months.Apr.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -81,7 +81,7 @@
 			<ul class="calenders clearfix">
 				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.May.days) track by $index" id="may{{$index+1}}" data-today="{{months.May.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.May.days) track by $index" id="may{{$index+1}}" dataToday="{{months.May.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -95,7 +95,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Jun.days) track by $index" id="jun{{$index+1}}" data-today="{{months.Jun.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Jun.days) track by $index" id="jun{{$index+1}}" dataToday="{{months.Jun.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 			</ul>
 		</li>
@@ -109,7 +109,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Jul.days) track by $index" id="jul{{$index+1}}" data-today="{{months.Jul.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Jul.days) track by $index" id="jul{{$index+1}}" dataToday="{{months.Jul.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -123,7 +123,7 @@
 				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Aug.days) track by $index" id="aug{{$index+1}}" data-today="{{months.Aug.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Aug.days) track by $index" id="aug{{$index+1}}" dataToday="{{months.Aug.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 			</ul>
@@ -137,14 +137,14 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Sep.days) track by $index" id="sep{{$index+1}}" data-today="{{months.Sep.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Sep.days) track by $index" id="sep{{$index+1}}" dataToday="{{months.Sep.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 			</ul>
 		</li>
 		<li>
 			<h3 class="months-heading">{{months.Oct.name}} - 2017</h3>
 			<ul class="calenders clearfix">
 				<li ng-repeat="weeks in weekdays.days">{{weeks}}</li>
-				<li ng-repeat="i in getMonths(months.Oct.days) track by $index" id="oct{{$index+1}}" data-today="{{months.Oct.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Oct.days) track by $index" id="oct{{$index+1}}" dataToday="{{months.Oct.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -158,7 +158,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Nov.days) track by $index" id="nov{{$index+1}}" data-today="{{months.Nov.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Nov.days) track by $index" id="nov{{$index+1}}" dataToday="{{months.Nov.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 			</ul>
@@ -172,7 +172,7 @@
 				<li></li>
 				<li></li>
 				<li></li>
-				<li ng-repeat="i in getMonths(months.Dec.days) track by $index" id="dec{{$index+1}}" data-today="{{months.Dec.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
+				<li ng-repeat="i in getMonths(months.Dec.days) track by $index" id="dec{{$index+1}}" dataToday="{{months.Dec.name}} - {{$index+1}}" ng-click="showMarkAttendancePopup($event)">{{$index+1}}</li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -182,13 +182,13 @@
 			</ul>
 		</li>
 	</ul>
-	<div class="overlay hide"></div>
-	<div class="addAttendance hide">
+	<div class="overlay" ng-show="showAttendancePopup"></div>
+	<div class="addAttendance" keyPathID="{{keypathid}}" isAttendanceMarked="{{isAttendanceMarked}}" dataID="{{dataID}}" ng-show="showAttendancePopup">
 		<span class="glyphicon glyphicon-remove close-attendance-popup" ng-click="closeAttendancePopup($event)"></span>
-		<span class="disp-today"></span>
+		<span class="disp-today" ng-bind="dispToday"></span>
 		<label for="">Working Hours:</label>
-		<input type="number" id="working-hours" min="1" max="24" />
-		<input type="submit" value="Submit" id="submitAttendance" ng-click="changeMarkAndUpdateAttendance($event)" />
+		<input type="number" ng-model="workingHours" min="1" max="24" />
+		<input type="submit" value="Submit" ng-click="changeMarkAndUpdateAttendance($event)" />
 	</div>
 </div>
 
