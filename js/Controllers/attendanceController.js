@@ -63,16 +63,19 @@ app.controller("attendanceController", function($scope, $http, $route){
 
 	//Showing Pop Up for Mark Attendance
 	$scope.showMarkAttendancePopup = function($event){
-
+		//Showing Attendance Popup
 		$scope.showAttendancePopup = true;
 
+		//Checking Attendance if it is marked
 		$scope.isAttendanceMarked = $event.currentTarget.children.length == 1;
 
 		//Showing current date in popup
 		$scope.dispToday = $event.currentTarget.attributes.dataToday.value;
 
+		//Putting selected ID in Popup attribute
 		$scope.dataID = $event.currentTarget.id;
 
+		//Putting Updated Working Hours for Update Attendance
 		if($scope.isAttendanceMarked){
 			$scope.keypathid = $event.currentTarget.children["0"].attributes[1].value;
 			$scope.workingHours = Number($event.currentTarget.children["0"].children["0"].innerHTML);
@@ -127,7 +130,6 @@ app.controller("attendanceController", function($scope, $http, $route){
 			alert("Sorry, Attendance was not added");
 			console.log("Error: ", e.target.error.name);
 		}
-
 	};
 
 
