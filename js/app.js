@@ -42,7 +42,7 @@ app.config(function($routeProvider){
 	.when("/workExperience", {
 		title : "EP | Work Experience",
 		templateUrl : "views/work-experience.html",
-		controller : "mainController"
+		controller : "experienceController"
 	})
 	.otherwise({redirectTo : "/"});
 });

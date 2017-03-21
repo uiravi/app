@@ -2,18 +2,12 @@
   <li><a href="#/">{{staticData.header.home}}</a></li>
   <li><a href="#Profile">{{staticData.header.profile}}</a></li>
 </ol>
-
+<h3>My Profile</h3>
 <div class="row">
 	<div class="col-md-3">
-		<div class="side-menu">
-			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation"><a href="#/">{{staticData.header.home}}</a></li>
-				<li role="presentation" class="active"><a href="#Profile">{{staticData.header.profile}}</a></li>
-				<li role="presentation"><a href="#workExperience">{{staticData.header.workExperience}}</a></li>
-			</ul>
-		</div>
+		<ng-include src="'views/side-menu.html'"></ng-include>
 	</div>
 	<div class="col-md-9">
-		<h1>My Profile</h1>
+		<h4>My Profile</h4>
 	</div>
 </div>
