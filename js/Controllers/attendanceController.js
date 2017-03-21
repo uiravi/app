@@ -176,12 +176,13 @@ app.controller("attendanceController", function($scope, $http, $route){
 				console.log("Error: Working hours not updated...");
 			};
 
-			$scope.showAttendancePopup = true;
 		};
+
+		$scope.showAttendancePopup = false;
 	};
 
 
-	//Chanhe marked and update attendance function
+	//Change marked and update attendance function
 	$scope.changeMarkAndUpdateAttendance = function($event){
 		$scope.isAttendanceMarked == true ? $scope.updateAttendance($event) : $scope.markAttendance($event);
 	};

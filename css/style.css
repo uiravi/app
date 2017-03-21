@@ -92,7 +92,7 @@
 	display: none;
 	}
 
-.logout-msg, .login-msg{
+.logout-msg, .login-msg, .attendance-msg{
 	border-radius: 5px;
 	background: #009000;
 	font: 14px arial;
@@ -105,7 +105,7 @@
 	background: #f00;
 	}
 
-.logout-msg:before, .login-msg:before{
+.logout-msg:before, .login-msg:before, .attendance-msg:before{
 	display:none;
 	}
 
@@ -384,3 +384,5 @@
     font-weight: bold;
     padding: 2px 5px 2px 4px;
 	}
+
+
