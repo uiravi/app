@@ -23,11 +23,12 @@ app.controller("experienceController", function($scope, $route){
 		$scope.showExperience();
 	};
 
+
+
 	//Error
 	request.onerror = function(e){
 		console.log("Error: Could Not Open Database...");
 	};
-
 
 
 	$scope.addExperience = function(){
@@ -36,7 +37,7 @@ app.controller("experienceController", function($scope, $route){
 		//Ask for ObjectStore
 		var store = transaction.objectStore('Experience');
 
-		var experience = {
+		$scope.experience = {
 			employerName : $scope.employerName,
 			startDate : $scope.startDate,
 			endDate : $scope.endDate,
@@ -44,12 +45,12 @@ app.controller("experienceController", function($scope, $route){
 		};
 
 		//perform the Add
-		var request = store.add(experience);
+		var request = store.add($scope.experience);
 
 		//Success
 		request.onsuccess = function(e){
 			console.log("You Have Successfully Added Experience for");
-			//$route.reload();
+			$route.reload();
 		};
 
 		//Error
@@ -67,7 +68,6 @@ app.controller("experienceController", function($scope, $route){
 		var store = transaction.objectStore('Experience');
 		var index = store.index('employerName');
 
-		
 		$scope.outputExp = [];
 
 		index.openCursor().onsuccess = function(e){
@@ -80,25 +80,12 @@ app.controller("experienceController", function($scope, $route){
 					experience : cursor.value.experience
 				});
 
-				/*outputExp += "<tr>",
-				outputExp += "<td>"+cursor.value.employerName+"</td>",
-				outputExp += "<td>"+cursor.value.startDate+"</td>",
-				outputExp += "<td>"+cursor.value.endDate+"</td>",
-				outputExp += "<td>"+cursor.value.experience+"</td>",
-				outputExp += "</tr>";*/
-
 				cursor.continue();
 
 			}
 		};
 
-		
-
-
 	};
-
-	
-
 
 
 });
