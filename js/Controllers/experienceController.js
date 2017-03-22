@@ -1,6 +1,6 @@
 'use strict';
 app.controller("experienceController", function($scope, $route){
-	
+
 	//Code for opening indexedDB database
 	var db;
 
@@ -11,7 +11,7 @@ app.controller("experienceController", function($scope, $route){
 	request.onupgradeneeded = function(e){
 		var db = e.target.result;
 		var objectStore = db.createObjectStore('Experience', {keyPath: 'id', autoIncrement:true})
-			.createIndex('experience', 'experience', {unique:true});
+			.createIndex('employerName', 'employerName', {unique:false});
 	};
 
 	//Success
@@ -40,7 +40,7 @@ app.controller("experienceController", function($scope, $route){
 			employerName : $scope.employerName,
 			startDate : $scope.startDate,
 			endDate : $scope.endDate,
-			exp : $scope.exp
+			experience : $scope.exp
 		};
 
 		//perform the Add
@@ -49,7 +49,7 @@ app.controller("experienceController", function($scope, $route){
 		//Success
 		request.onsuccess = function(e){
 			console.log("You Have Successfully Added Experience for");
-			$route.reload();
+			//$route.reload();
 		};
 
 		//Error
@@ -65,10 +65,39 @@ app.controller("experienceController", function($scope, $route){
 
 		//Ask for ObjectStore
 		var store = transaction.objectStore('Experience');
-		var index = store.index('experience');
+		var index = store.index('employerName');
+
+		
+		$scope.outputExp = [];
+
+		index.openCursor().onsuccess = function(e){
+			var cursor = e.target.result;
+			if(cursor){
+				$scope.outputExp.push({
+					employerName : cursor.value.employerName,
+					startDate : cursor.value.startDate,
+					endDate : cursor.value.endDate,
+					experience : cursor.value.experience
+				});
+
+				/*outputExp += "<tr>",
+				outputExp += "<td>"+cursor.value.employerName+"</td>",
+				outputExp += "<td>"+cursor.value.startDate+"</td>",
+				outputExp += "<td>"+cursor.value.endDate+"</td>",
+				outputExp += "<td>"+cursor.value.experience+"</td>",
+				outputExp += "</tr>";*/
+
+				cursor.continue();
+
+			}
+		};
+
+		
 
 
 	};
+
+	
 
 
 

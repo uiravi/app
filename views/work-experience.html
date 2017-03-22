@@ -19,11 +19,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>HCL Technologies Ltd.</td>
-					<td>01/01/2011</td>
-					<td>31/12/2016</td>
-					<td>5 Years</td>
+				<tr ng-repeat="exp in outputExp">
+					<td>{{exp.employerName}}</td>
+					<td>{{exp.startDate}}</td>
+					<td>{{exp.endDate}}</td>
+					<td>{{exp.experience}}</td>
 				</tr>
 				<tr>
 					<td colspan="2"></td>
